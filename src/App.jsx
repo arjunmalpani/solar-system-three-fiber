@@ -1,18 +1,30 @@
+import { Suspense, useState, lazy, useEffect } from "react";
 import "./App.css";
-import { useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import SolarSystem from "./components/SolarSystem";
+import LoadingOverlay from "./components/LoadingOverlay";
+import { preloadAssets } from "./utils/preload";
+import { Loader } from "@react-three/drei";
+import SolarExperience from "./SolarExperience";
+
+// const SolarExperience = lazy(() => import("./SolarExperience"));
 
 function App() {
-    const [target, setTarget] = useState(null);
+    // const [assetsStarted, setAssetsStarted] = useState(false);
+    // useEffect(() => {
+    //     preloadAssets();
+    //     setAssetsStarted(true);
+    // }, []);
+
     return (
         <div className="w-screen h-screen">
-            <Canvas
-                camera={{ position: [0, 0, 14], fov: 50 }}
-                onPointerMissed={() => setTarget(null)}
-            >
-                <SolarSystem target={target} setTarget={setTarget} />
-            </Canvas>
+            {/* <Suspense fallback={<p>Loading...</p>}>*/}
+            {/* {assetsStarted &&*/}
+
+            <SolarExperience />
+
+            {/* }*/}
+            {/* </Suspense>*/}
+            {/* <LoadingOverlay />*/}
+            <Loader />
         </div>
     );
 }

@@ -17,7 +17,7 @@ function Sun() {
                 opacity={1}
                 map={sunMap}
             />
-            <pointLight intensity={200} color="#fff2cc" />
+            <pointLight intensity={1000} color="#fff2cc" />
         </mesh>
     );
 }

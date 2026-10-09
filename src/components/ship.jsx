@@ -10,14 +10,19 @@ function SpaceShip({ distance = 16, speed = 0.4, size = 1.5, onSelect }) {
     useCursor(hovered);
 
     const { scene } = useGLTF("/models/spaceship.glb");
+
+    const model = useMemo(() => scene.clone(true), [scene]);
+
     const { fit, center } = useMemo(() => {
-        const box = new THREE.Box3().setFromObject(scene);
+        const box = new THREE.Box3().setFromObject(model);
         const dims = box.getSize(new THREE.Vector3());
+        console.log("Model dimensions:", dims);
+
         return {
             fit: size / Math.max(dims.x, dims.y, dims.z), // scale to `size` units
             center: box.getCenter(new THREE.Vector3()),
         };
-    }, [scene, size]);
+    }, [model, size]);
 
     useFrame((state, delta) => {
         orbit.current.rotation.y += delta * speed;
@@ -26,6 +31,7 @@ function SpaceShip({ distance = 16, speed = 0.4, size = 1.5, onSelect }) {
             1.5 + Math.sin(state.clock.elapsedTime * 2) * 1.15;
         body.current.position.z = Math.sin(state.clock.elapsedTime) * 0.1;
     });
+
     return (
         <group ref={orbit}>
             <group
@@ -41,9 +47,10 @@ function SpaceShip({ distance = 16, speed = 0.4, size = 1.5, onSelect }) {
                 }}
                 onPointerOut={() => setHovered(false)}
             >
+
                 <group scale={fit} rotation={[0, Math.PI, 0]}>
                     <primitive
-                        object={scene}
+                        object={model}
                         position={[-center.x, -center.y, -center.z]}
                     />
                 </group>
@@ -54,4 +61,4 @@ function SpaceShip({ distance = 16, speed = 0.4, size = 1.5, onSelect }) {
 
 export default SpaceShip;
 
-// useGLTF.preload("/models/spaceship.glb");
+useGLTF.preload("/models/spaceship.glb");

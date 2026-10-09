@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 
 import { Html, useCursor, useTexture } from "@react-three/drei";
+import OrbitLine from "./OrbitLine";
 
 function TexturedPlanetMesh({ texture }) {
     const map = useTexture(texture);
@@ -42,42 +43,46 @@ function Planet({
     };
     const handleOnPointerOut = () => setHovered(false);
     return (
-        <group ref={orbit}>
-            <group
-                position={[distance, 0, 0]}
-                onClick={handleOnClick}
-                onPointerOver={handleOnPointerOver}
-                onPointerOut={handleOnPointerOut}
-            >
-                <mesh ref={body}>
-                    <sphereGeometry args={[radius, 32, 32]} />
-                    {texture ? (
-                        <TexturedPlanetMesh texture={texture} />
-                    ) : (
-                        <meshStandardMaterial color={color} />
-                    )}
-                </mesh>
-
-                {atmosphere && (
-                    <mesh>
-                        <sphereGeometry args={[radius * 1.05, 32, 32]} />
-                        <TexturedAtmosphereMesh texture={atmosphere} />
-                    </mesh>
-                )}
-                <Html
-                    position={[0, radius + 0.3, 0]}
-                    center
-                    style={{ pointerEvents: "none" }}
-                    distanceFactor={15} // so that text shrinks when zoomed out
-                    occlude // hides text behind the object
+        <>
+            <OrbitLine distance={distance} />
+            <group ref={orbit}>
+                {/* planet*/}
+                <group
+                    position={[distance, 0, 0]}
+                    onClick={handleOnClick}
+                    onPointerOver={handleOnPointerOver}
+                    onPointerOut={handleOnPointerOut}
                 >
-                    <div className="text-[--text] text-xs capitalize whitespace-nowrap select-none">
-                        {name}
-                    </div>
-                </Html>
-                {children}
+                    <mesh ref={body}>
+                        <sphereGeometry args={[radius, 32, 32]} />
+                        {texture ? (
+                            <TexturedPlanetMesh texture={texture} />
+                        ) : (
+                            <meshStandardMaterial color={color} />
+                        )}
+                    </mesh>
+
+                    {atmosphere && (
+                        <mesh>
+                            <sphereGeometry args={[radius * 1.05, 32, 32]} />
+                            <TexturedAtmosphereMesh texture={atmosphere} />
+                        </mesh>
+                    )}
+                    <Html
+                        position={[0, radius + 0.3, 0]}
+                        center
+                        style={{ pointerEvents: "none" }}
+                        distanceFactor={15} // so that text shrinks when zoomed out
+                        occlude // hides text behind the object
+                    >
+                        <div className="text-[--text] text-xs capitalize whitespace-nowrap select-none">
+                            {name}
+                        </div>
+                    </Html>
+                    {children}
+                </group>
             </group>
-        </group>
+        </>
     );
 }
 

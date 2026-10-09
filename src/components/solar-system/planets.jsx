@@ -1,3 +1,4 @@
+import { useTexture } from "@react-three/drei";
 import Planet from "./planet";
 
 const planets = [
@@ -26,7 +27,15 @@ const planets = [
         atmosphere: "/textures/earth_clouds.jpg",
         child: {
             name: "moon",
-            component: <Planet radius={0.18} distance={1.4} speed={2.5} />,
+            component: (
+                <Planet
+                    name="moon"
+                    radius={0.18}
+                    texture="/textures/moon.jpg"
+                    distance={1.4}
+                    speed={2.5}
+                />
+            ),
         },
     },
     {
@@ -72,16 +81,26 @@ const planets = [
         texture: "/textures/neptune.jpg",
         child: null,
     },
+    {
+        name: "pluto",
+        radius: 0.15,
+        distance: 40,
+        speed: 0.01,
+        texture: "/textures/pluto.webp",
+        child: null,
+    },
 ];
 function SaturnRings({ radius }) {
+    const map = useTexture("/textures/saturn_ring.png")
     return (
         <mesh rotation={[Math.PI / 2.2, 0, 0]}>
             <ringGeometry args={[radius * 2, radius * 1.5, 64]} />
             <meshBasicMaterial
+                map={map}
                 color="#7c6936"
                 side={2}
                 transparent
-                opacity={0.7}
+                opacity={1}
                 depthWrite={false}
             />
         </mesh>

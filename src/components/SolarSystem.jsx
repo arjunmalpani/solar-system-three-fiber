@@ -44,12 +44,11 @@ export default function SolarSystem({ target, setTarget }) {
     }, [setTarget]);
     return (
         <>
-            <ambientLight intensity={0.1} />
-            <Stars fade />
+            <Stars />
             <Sun />
             <Planets onSelect={setTarget} />
             <SpaceShip onSelect={setTarget} />
-            <OrbitControls ref={controlsRef} maxDistance={50} minDistance={2} />
+            <OrbitControls ref={controlsRef} maxDistance={30} minDistance={2} />
             <CameraRig target={target} controlsRef={controlsRef} />
 
             <EffectComposer>
@@ -61,7 +60,6 @@ export default function SolarSystem({ target, setTarget }) {
                 />
             </EffectComposer>
 
-            <mesh visible={false} onClick={() => setTarget(null)} />
         </>
     );
 }
