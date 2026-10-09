@@ -15,6 +15,7 @@ const planets = [
         radius: 0.65,
         distance: 8.5,
         speed: 0.9,
+        glow: "#e8c37a",
         texture: "/textures/venus.jpg",
         child: null,
     },
@@ -23,6 +24,7 @@ const planets = [
         radius: 0.7,
         distance: 11.5,
         speed: 0.7,
+        glow: "#4f9dff",
         texture: "/textures/earth.jpg",
         atmosphere: "/textures/earth_clouds.jpg",
         child: {
@@ -43,6 +45,7 @@ const planets = [
         radius: 0.45,
         distance: 14.5,
         speed: 0.5,
+        glow: "#d9623b",
         texture: "/textures/mars.jpg",
         child: null,
     },
@@ -51,6 +54,7 @@ const planets = [
         radius: 2.2,
         distance: 20,
         speed: 0.3,
+        glow: "#d9b38c",
         texture: "/textures/jupiter.jpg",
         child: null,
     },
@@ -59,6 +63,7 @@ const planets = [
         radius: 1.8,
         distance: 26,
         speed: 0.2,
+        glow: "#e3c98a",
         texture: "/textures/saturn.jpg",
         child: {
             name: "rings",
@@ -70,6 +75,7 @@ const planets = [
         radius: 1.2,
         distance: 31,
         speed: 0.15,
+        glow: "#7fe3e3",
         texture: "/textures/uranus.jpg",
         child: null,
     },
@@ -78,6 +84,7 @@ const planets = [
         radius: 1.15,
         distance: 36,
         speed: 0.1,
+        glow: "#3f6bff",
         texture: "/textures/neptune.jpg",
         child: null,
     },
@@ -91,7 +98,7 @@ const planets = [
     },
 ];
 function SaturnRings({ radius }) {
-    const map = useTexture("/textures/saturn_ring.png")
+    const map = useTexture("/textures/saturn_ring.png");
     return (
         <mesh rotation={[Math.PI / 2.2, 0, 0]}>
             <ringGeometry args={[radius * 2, radius * 1.5, 64]} />
@@ -119,6 +126,7 @@ function Planets({ onSelect }) {
                     texture={planet.texture}
                     atmosphere={planet.atmosphere}
                     onSelect={onSelect}
+                    glow={planet.glow}
                 >
                     {planet.child && planet.child.component}
                 </Planet>

@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber";
 
 import { Html, useCursor, useTexture } from "@react-three/drei";
 import OrbitLine from "./OrbitLine";
+import Atmosphere from "./atmosphere";
 
 function TexturedPlanetMesh({ texture }) {
     const map = useTexture(texture);
@@ -24,6 +25,7 @@ function Planet({
     atmosphere,
     onSelect,
     name,
+    glow
 }) {
     const [hovered, setHovered] = useState(false);
     const orbit = useRef();
@@ -35,7 +37,7 @@ function Planet({
     });
     const handleOnClick = (e) => {
         e.stopPropagation();
-        onSelect?.({ ref: body, radius });
+        onSelect?.({ ref: body, radius, name });
     };
     const handleOnPointerOver = (e) => {
         e.stopPropagation();
@@ -68,6 +70,7 @@ function Planet({
                             <TexturedAtmosphereMesh texture={atmosphere} />
                         </mesh>
                     )}
+                    {/* {glow && <Atmosphere radius={radius} color={glow} />}*/}
                     <Html
                         position={[0, radius + 0.3, 0]}
                         center

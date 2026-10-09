@@ -3,7 +3,13 @@ import { useCursor, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-function SpaceShip({ distance = 16, speed = 0.4, size = 1.5, onSelect }) {
+function SpaceShip({
+    distance = 16,
+    speed = 0.4,
+    size = 1.5,
+    onSelect,
+    name = "SpaceShip",
+}) {
     const orbit = useRef();
     const body = useRef();
     const [hovered, setHovered] = useState(false);
@@ -39,7 +45,7 @@ function SpaceShip({ distance = 16, speed = 0.4, size = 1.5, onSelect }) {
                 position={[distance, 1.5, 0]}
                 onClick={(e) => {
                     e.stopPropagation();
-                    onSelect?.({ ref: body, radius: size / 2 });
+                    onSelect?.({ ref: body, radius: size / 2, name });
                 }}
                 onPointerOver={(e) => {
                     e.stopPropagation();
