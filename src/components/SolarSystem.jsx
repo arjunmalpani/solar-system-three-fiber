@@ -1,19 +1,17 @@
+import { useEffect, useRef } from "react";
 import { OrbitControls, Stars } from "@react-three/drei";
-import Sun from "./solar-system/sun";
-import Planets from "./solar-system/planets";
-
-import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
-import { useState } from "react";
-import SpaceShip from "./solar-system/ship";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
-import { useEffect } from "react";
+import * as THREE from "three";
+import SpaceShip from "./ship";
+import Planets from "./solar-system/planets";
+import Sun from "./solar-system/sun";
 
 const planetPos = new THREE.Vector3();
 const direction = new THREE.Vector3();
 const desired = new THREE.Vector3();
-const origin = new THREE.Vector3(0, 0, 0);
+
+// const origin = new THREE.Vector3(0, 0, 0);
 
 function CameraRig({ target, controlsRef }) {
     useFrame((state, delta) => {
@@ -43,7 +41,7 @@ export default function SolarSystem({ target, setTarget }) {
         const onKey = (e) => e.key === "Escape" && setTarget(null);
         window.addEventListener("keydown", onKey);
         return () => window.removeEventListener("keydown", onKey);
-    }, []);
+    }, [setTarget]);
     return (
         <>
             <ambientLight intensity={0.1} />

@@ -1,9 +1,8 @@
+import { useMemo, useRef, useState } from "react";
 import { useCursor, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useMemo } from "react";
-import { useState } from "react";
-import { useRef } from "react";
 import * as THREE from "three";
+
 function SpaceShip({ distance = 16, speed = 0.4, size = 1.5, onSelect }) {
     const orbit = useRef();
     const body = useRef();

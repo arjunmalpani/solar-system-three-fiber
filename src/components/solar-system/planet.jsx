@@ -1,7 +1,17 @@
-import { Html, useCursor, useTexture } from "@react-three/drei";
+import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import { useState } from "react";
-import { useRef } from "react";
+
+import { Html, useCursor, useTexture } from "@react-three/drei";
+
+function TexturedPlanetMesh({ texture }) {
+    const map = useTexture(texture);
+
+    return <meshStandardMaterial map={map} color={"white"} />;
+}
+function TexturedAtmosphereMesh({ texture }) {
+    const map = useTexture(texture);
+    return <meshStandardMaterial map={map} transparent opacity={0.15} />;
+}
 
 function Planet({
     radius,
@@ -17,8 +27,6 @@ function Planet({
     const [hovered, setHovered] = useState(false);
     const orbit = useRef();
     const body = useRef();
-    const map = texture ? useTexture(texture) : null;
-    const atmospheremap = atmosphere ? useTexture(atmosphere) : null;
     useCursor(hovered);
     useFrame((_state, delta) => {
         orbit.current.rotation.y += delta * speed; // around the parent
@@ -32,7 +40,7 @@ function Planet({
         e.stopPropagation();
         setHovered(true);
     };
-    const handleOnPointerOut = () => setHovered(false)
+    const handleOnPointerOut = () => setHovered(false);
     return (
         <group ref={orbit}>
             <group
@@ -43,13 +51,17 @@ function Planet({
             >
                 <mesh ref={body}>
                     <sphereGeometry args={[radius, 32, 32]} />
-                    <meshStandardMaterial map={map} color={map ? "white" : color}/>
+                    {texture ? (
+                        <TexturedPlanetMesh texture={texture} />
+                    ) : (
+                        <meshStandardMaterial color={color} />
+                    )}
                 </mesh>
 
                 {atmosphere && (
                     <mesh>
                         <sphereGeometry args={[radius * 1.05, 32, 32]} />
-                        <meshStandardMaterial map={atmospheremap} transparent opacity={0.15}/>
+                        <TexturedAtmosphereMesh texture={atmosphere} />
                     </mesh>
                 )}
                 <Html

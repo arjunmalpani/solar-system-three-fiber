@@ -1,6 +1,5 @@
+import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
-import { useState } from "react";
 
 function SpinningBox() {
     const ref = useRef();
@@ -8,12 +7,12 @@ function SpinningBox() {
     const [clicked, setClicked] = useState(false);
 
     useFrame((state, delta) => {
-        ref.current.rotation.y += delta
-    })
+        ref.current.rotation.y += delta;
+    });
     return (
         <mesh
             ref={ref}
-            scale={clicked? 1.5 : 1}
+            scale={clicked ? 1.5 : 1}
             onClick={() => {
                 setClicked(!clicked);
             }}
@@ -24,7 +23,7 @@ function SpinningBox() {
                 setHovered(false);
             }}
         >
-            <boxGeometry/>
+            <boxGeometry />
             <meshStandardMaterial color={hovered ? "red" : "yellow"} />
         </mesh>
     );

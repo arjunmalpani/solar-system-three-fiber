@@ -1,8 +1,7 @@
-import { Canvas } from "@react-three/fiber";
 import "./App.css";
-import SolarSystem from "./components/SolarSystem";
 import { useState } from "react";
-// import FirstScene from "./components/FirstScene";
+import { Canvas } from "@react-three/fiber";
+import SolarSystem from "./components/SolarSystem";
 
 function App() {
     const [target, setTarget] = useState(null);
@@ -14,7 +13,6 @@ function App() {
             >
                 <SolarSystem target={target} setTarget={setTarget} />
             </Canvas>
-            {/* <FirstScene />*/}
         </div>
     );
 }

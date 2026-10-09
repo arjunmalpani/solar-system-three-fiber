@@ -1,6 +1,6 @@
+import { useRef } from "react";
 import { useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
 
 function Sun() {
     const sunMap = useTexture("/textures/sun.jpg");
@@ -9,9 +9,14 @@ function Sun() {
         sun.current.rotation.y += delta * 0.06;
     });
     return (
-        <mesh ref={sun}  position={[0, 0, 0]}>
+        <mesh ref={sun} position={[0, 0, 0]}>
             <sphereGeometry args={[4.0, 32, 32]} />
-            <meshBasicMaterial color={[3, 2.5, 2]} toneMapped={false} opacity={1} map={sunMap} />
+            <meshBasicMaterial
+                color={[3, 2.5, 2]}
+                toneMapped={false}
+                opacity={1}
+                map={sunMap}
+            />
             <pointLight intensity={200} color="#fff2cc" />
         </mesh>
     );

@@ -1,6 +1,6 @@
+import { Suspense } from "react";
 import { Environment, OrbitControls, Stars, Text } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
 import Chick from "./models/chick";
 
 function FirstScene() {

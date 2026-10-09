@@ -1,0 +1,12 @@
+
+node_modules
+dist
+build
+coverage
+package-lock.json
+public/**/*.glb
+public/**/*.gltf
+public/**/*.png
+public/**/*.jpg
+public/**/*.jpeg
+public/**/*.webp
