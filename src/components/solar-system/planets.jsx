@@ -1,0 +1,111 @@
+import Planet from "./planet";
+
+const planets = [
+    {
+        name: "mercury",
+        radius: 0.35,
+        distance: 6,
+        speed: 1.2,
+        texture: "/textures/mercury.jpg",
+        child: null,
+    },
+    {
+        name: "venus",
+        radius: 0.65,
+        distance: 8.5,
+        speed: 0.9,
+        texture: "/textures/venus.jpg",
+        child: null,
+    },
+    {
+        name: "earth",
+        radius: 0.7,
+        distance: 11.5,
+        speed: 0.7,
+        texture: "/textures/earth.jpg",
+        atmosphere: "/textures/earth_clouds.jpg",
+        child: {
+            name: "moon",
+            component: <Planet radius={0.18} distance={1.4} speed={2.5} />,
+        },
+    },
+    {
+        name: "mars",
+        radius: 0.45,
+        distance: 14.5,
+        speed: 0.5,
+        texture: "/textures/mars.jpg",
+        child: null,
+    },
+    {
+        name: "jupiter",
+        radius: 2.2,
+        distance: 20,
+        speed: 0.3,
+        texture: "/textures/jupiter.jpg",
+        child: null,
+    },
+    {
+        name: "saturn",
+        radius: 1.8,
+        distance: 26,
+        speed: 0.2,
+        texture: "/textures/saturn.jpg",
+        child: {
+            name: "rings",
+            component: <SaturnRings radius={1.8} />,
+        },
+    },
+    {
+        name: "uranus",
+        radius: 1.2,
+        distance: 31,
+        speed: 0.15,
+        texture: "/textures/uranus.jpg",
+        child: null,
+    },
+    {
+        name: "neptune",
+        radius: 1.15,
+        distance: 36,
+        speed: 0.1,
+        texture: "/textures/neptune.jpg",
+        child: null,
+    },
+];
+function SaturnRings({ radius }) {
+    return (
+        <mesh rotation={[Math.PI / 2.2, 0, 0]}>
+            <ringGeometry args={[radius * 2, radius * 1.5, 64]} />
+            <meshBasicMaterial
+                color="#7c6936"
+                side={2}
+                transparent
+                opacity={0.7}
+                depthWrite={false}
+            />
+        </mesh>
+    );
+}
+function Planets({ onSelect }) {
+    return (
+        <>
+            {planets.map((planet) => (
+                <Planet
+                    key={planet.name}
+                    name={planet.name}
+                    radius={planet.radius}
+                    distance={planet.distance}
+                    speed={planet.speed}
+                    texture={planet.texture}
+                    atmosphere={planet.atmosphere}
+                    onSelect={onSelect}
+                >
+                    {planet.child && planet.child.component}
+                </Planet>
+            ))}
+        </>
+    );
+}
+
+export default Planets;
